@@ -1,4 +1,4 @@
-Please fork this repository and develop a real estate property search feature using Next.js, MySQL, and GraphQL in your own repository. Include a Docker Compose configuration for Next.js and instructions to generate fake data. This test aims to assess your critical thinking and technical skills, so a complete git log showing all work done is important.
+Please fork this repository and develop a real estate property search feature using Next.js, MySQL, and GraphQL in your own repository. Include a Docker Compose configuration for Next.js and provide instructions for generating fake data. This test aims to assess your critical thinking and technical skills, so include unit tests following best practices. Additionally, ensure that the git log is complete, showing all work done.  
 
 **User Story:**  
 
