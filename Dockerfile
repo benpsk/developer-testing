@@ -16,5 +16,4 @@ RUN --mount=type=bind,source=package.json,target=package.json \
 COPY start.sh /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh
 
-# ENTRYPOINT ["start.sh"]
-CMD npm run dev
+ENTRYPOINT ["start.sh"]

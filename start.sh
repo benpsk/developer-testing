@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-# npm run migrate
+npm run migrate
 # npx prisma db seed
-# npm run dev
+npm run dev
