@@ -2,7 +2,7 @@
 import { render, screen } from '@testing-library/react';
 import Home from '@/components/home';
 import { expect, test } from 'vitest'
-import ApolloProvider from '../app/ApolloProvider';
+import ApolloProvider from '../context/ApolloProvider';
 import { initialMockData } from '@/__mocks__/handlers';
 
 

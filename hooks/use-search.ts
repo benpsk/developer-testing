@@ -28,7 +28,6 @@ export interface FilterType {
     maxArea: number
 }
 const searchReducer = (state: FilterType, action: any) => {
-    console.log(typeof action);
     switch (action.type) {
         case searchType.SET_OFFER_TYPE:
             return { ...state, offerType: action.payload };

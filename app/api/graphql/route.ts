@@ -159,8 +159,6 @@ builder.queryField('property', (t) =>
         totalCount,
       };
 
-      console.log(pageInfo);
-
       return {
         pageInfo,
         properties,

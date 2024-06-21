@@ -24,12 +24,10 @@ const Home = ({ initialData }: { initialData: any }) => {
       refetch({
         take, skip, ...filter
       }).then((result) => {
-        console.log('inside => ', result);
         if (result?.data?.property) setCurrentData(result.data.property);
       });
     }
   }, [skip, take, filter, refetch, loading, error]);
-  console.log(take, loading, error);
 
   useEffect(() => {
     setSkip(0);
@@ -39,7 +37,7 @@ const Home = ({ initialData }: { initialData: any }) => {
   if (error) return `Error! ${error.message}`;
 
   return (
-    <div className="">
+    <div>
       <Search
         filter={filter}
         dispatchFilter={dispatchFilter}
