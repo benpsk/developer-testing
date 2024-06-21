@@ -11,6 +11,7 @@ services:
       - /app/.next
     ports:
       - 3000:3000
+      - 5555:5555 # for prisma studio
     depends_on:
       - db
     networks:
