@@ -1,0 +1,44 @@
+services:
+  server:
+    build:
+      context: .
+    environment:
+      NODE_ENV: development
+    restart: unless-stopped
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules # Exclude node_modules from the bind mount
+      - /app/.next
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    networks:
+      - net
+
+  db:
+    image: mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: "${DB_DATABASE:-secret}"
+      MYSQL_ROOT_PASSWORD: "${DB_PASSWORD:-secret}"
+      MYSQL_PASSWORD: "${DB_PASSWORD:-secret}"
+      # MYSQL_USER: "${DB_USER:-secret}" // dev only
+    volumes:
+      - db-data:/var/lib/mysql
+    ports:
+      - 3305:3306
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 5s
+      retries: 5
+    networks:
+      - net
+
+networks:
+  net:
+    driver: bridge
+
+volumes:
+  db-data:
+    driver: local
