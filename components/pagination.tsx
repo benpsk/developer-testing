@@ -41,18 +41,18 @@ const Pagination = ({ pageInfo, skip, take, setSkip, setTake }: { pageInfo: Page
     }, [pageInfo]);
 
     const handleNextPage = () => {
-        setSkip(prevSkip => prevSkip + take);
+        setSkip((prevSkip: number) => prevSkip + take);
     };
 
     const handlePreviousPage = () => {
-        setSkip(prevSkip => Math.max(prevSkip - take, 0));
+        setSkip((prevSkip: number) => Math.max(prevSkip - take, 0));
     };
 
     const handleShow = (value: number) => {
         setTake(value);
     }
-    const handlePageClick = (page: number) => {
-        setSkip((page - 1) * take);
+    const handlePageClick = (page: number|string) => {
+        setSkip((+page - 1) * take);
     };
 
     return (
