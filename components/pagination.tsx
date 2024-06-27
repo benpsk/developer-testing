@@ -56,7 +56,7 @@ const Pagination = ({ pageInfo, skip, take, setSkip, setTake }: { pageInfo: Page
     };
 
     return (
-        <div className='mt-16 flex justify-center items-center flex-col md:flex-row space-y-2 md:space-y-0'>
+        <div data-testid="property-pagination" className='mt-16 flex justify-center items-center flex-col md:flex-row space-y-2 md:space-y-0'>
             <div className="me-4 text-sm">
                 <label className="me-2">Show</label>
                 <DropdownMenu>
@@ -94,8 +94,9 @@ const Pagination = ({ pageInfo, skip, take, setSkip, setTake }: { pageInfo: Page
                 </li>
                 {
                     pageNumbers.map((pagination, index) => (
-                        <li key={index}>
+                        <li aria-label={`page-${pagination}`} key={index}>
                             <button
+                                aria-label={`page-btn-${pagination}`}
                                 onClick={() => handlePageClick(pagination)}
                                 className={`block size-8 rounded border border-gray-100 text-center leading-8 
                             ${pageInfo.currentPage == pagination ? 'bg-blue-600 text-white' : 'bg-white text-gray-900'}
