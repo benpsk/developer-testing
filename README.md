@@ -20,7 +20,11 @@ npm run migrate
 ```shell
 npx prisma db seed 100
 ```
-**6. access the app**
+**6. run tests**
+```shell
+npm run test
+```
+**7. access the app**
 - http://localhost:3000
 
 
