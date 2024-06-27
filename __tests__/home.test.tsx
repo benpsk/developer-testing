@@ -2,7 +2,7 @@ import { act, render, screen, waitFor } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
 import Home from '@/components/home';
 import { test, expect, vi, describe } from 'vitest';
-import { initialMockData, mocks } from '@/__mocks__/handlers';
+import { initialMockData, mocks, priceFilterMockData, offerTypeMockData } from '@/__mocks__/handlers';
 import userEvent from '@testing-library/user-event'
 
 vi.mock('@/components/ui/carousel', () => {
@@ -87,4 +87,73 @@ describe('test pagination component', async () => {
       expect(screen.getByText('Type - RENT')).toBeDefined();
     });
   });
+});
+
+describe('test search component', async () => {
+  test('renders search component', async () => {
+    render(
+      <MockedProvider mocks={offerTypeMockData} addTypename={false}>
+        <Home initialData={initialMockData} />
+      </MockedProvider>
+    );
+    expect(screen.queryByTestId('search-component')).toBeDefined();
+    expect(screen.queryByTestId('offertype-search')).toBeDefined();
+    expect(screen.queryByTestId('price-search')).toBeDefined();
+    expect(screen.queryByTestId('bed-search')).toBeDefined();
+    expect(screen.queryByTestId('area-search')).toBeDefined();
+    expect(screen.getByLabelText('search-reset-btn')).toBeDefined();
+  });
+
+  test('filter by offer type', async () => {
+    render(
+      <MockedProvider mocks={offerTypeMockData} addTypename={false}>
+        <Home initialData={initialMockData} />
+      </MockedProvider>
+    );
+    const offerTypeToggleBtn = screen.getByTestId('offertype-toggle');
+    userEvent.click(offerTypeToggleBtn);
+    await waitFor(() => {
+      expect(screen.getByText('RENT')).toBeDefined();
+      expect(screen.getByText('SALE')).toBeDefined();
+    });
+    const saleTrigger = screen.getByText('SALE');
+    await act(async () => {
+      userEvent.click(saleTrigger)
+    });
+    await waitFor(() => {
+      expect(screen.getByText('second title', { exact: false })).toBeDefined();
+      expect(screen.getByText('second name', { exact: false })).toBeDefined();
+    });
+  });
+
+  // will throw act() warning.
+  test('filter by min price', async () => {
+    render(
+      <MockedProvider mocks={priceFilterMockData} addTypename={false}>
+        <Home initialData={initialMockData} />
+      </MockedProvider>
+    );
+    const priceBtn = screen.getByTestId('price-toggle');
+    userEvent.click(priceBtn);
+    await waitFor(() => {
+      expect(screen.getByText('Min')).toBeDefined();
+    });
+    const minPriceTrigger = screen.getByText('Min');
+    await act(async () => {
+      userEvent.click(minPriceTrigger);
+    });
+    await waitFor(() => {
+      expect(screen.getByText('$1000')).toBeDefined();
+    });
+    const minPriceItem = screen.getByText('$1000');
+    await act(async () => {
+      userEvent.click(minPriceItem);
+    });
+    await waitFor(() => {
+      expect(screen.getByText('second title', { exact: false })).toBeDefined();
+      expect(screen.getByText('second name', { exact: false })).toBeDefined();
+    });
+  });
+  // todo - add filter by bedroom count
+  // todo -add filter by area 
 });

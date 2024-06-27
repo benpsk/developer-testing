@@ -34,7 +34,7 @@ type Property = {
 
 const Property = ({ property }: { property: Property }) => {
   return (
-    <div key={property.id} className="flex flex-col overflow-hidden rounded-lg border lg:flex-row">
+    <div data-testid="property-component" key={property.id} className="flex flex-col overflow-hidden rounded-lg border lg:flex-row">
       <div className="group relative block h-56 w-full shrink-0 self-start overflow-hidden bg-gray-100 md:h-64 md:w-64">
         <Carousel>
           <CarouselContent>
@@ -62,7 +62,7 @@ const Property = ({ property }: { property: Property }) => {
       </div>
       <div className="flex flex-col gap-2 p-4 lg:p-6 lg:py-2 lg:h-64 overflow-hidden">
         <div>
-          <span className="text-xs rounded-md px-2 py-1 text-gray-400 bg-gray-200">{property.offerType}</span>
+          <span className="text-xs rounded-md px-2 py-1 text-gray-400 bg-gray-200">Type - {property.offerType}</span>
         </div>
         <span className="text-sm">Name - {property.name}</span>
         <h2 className="text-xl font-bold text-gray-800">

@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { maxPriceList, minPriceList, bedroomList, maxAreaList, minAreaList } from "@/util/search"
 import { FilterType, searchType } from "@/hooks/use-search"
-import { OfferType } from "@prisma/client"
 
 const Search = ({ filter, dispatchFilter  } : { filter: FilterType, dispatchFilter : any}) => {
   const handleReset = () => {
@@ -31,22 +30,22 @@ const Search = ({ filter, dispatchFilter  } : { filter: FilterType, dispatchFilt
     }
   }
     return (
-        <div className="flex flex-wrap justify-center items-center space-x-4 space-y-4 md:space-y-0 mb-10">
+        <div data-testid="search-component" className="flex flex-wrap justify-center items-center space-x-4 space-y-4 md:space-y-0 mb-10">
             <div className="hidden md:block">
                 <label htmlFor="filterBy">Filter By: </label>
             </div>
-            <DropdownMenu>
-                <DropdownMenuTrigger className="px-4 py-2 rounded-lg border p-2 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-gray-400">{filter.offerType || 'Offer Type'}</DropdownMenuTrigger>
+            <DropdownMenu data-testid="offertype-search"  >
+                <DropdownMenuTrigger data-testid="offertype-toggle" className="px-4 py-2 rounded-lg border p-2 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-gray-400">{filter.offerType || 'Offer Type'}</DropdownMenuTrigger>
                 <DropdownMenuContent>
-                    <DropdownMenuItem onSelect={() => dispatchFilter({ type: searchType.SET_OFFER_TYPE, payload: OfferType.SALE })}>SALE</DropdownMenuItem>
-                    <DropdownMenuItem onSelect={() => dispatchFilter({ type: searchType.SET_OFFER_TYPE, payload: OfferType.RENT })}>RENT</DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => dispatchFilter({ type: searchType.SET_OFFER_TYPE, payload: "SALE"})}>SALE</DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => dispatchFilter({ type: searchType.SET_OFFER_TYPE, payload: "RENT"})}>RENT</DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
-            <Popover>
+            <Popover data-testid="price-search">
                 <PopoverTrigger asChild>
-                    <Button variant="outline">{getTitle(filter.minPrice, filter.maxPrice, '$')}</Button>
+                    <Button data-testid="price-toggle" variant="outline">{getTitle(filter.minPrice, filter.maxPrice, '$')}</Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-full">
+                <PopoverContent className="w-full" data-testid="search-price-popover">
                     <div className="flex flex-row gap-4">
                         <DropdownMenu>
                             <DropdownMenuTrigger className="px-4 py-2 rounded-lg border p-2 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-gray-400">{filter.minPrice ? `$${filter.minPrice}` : 'Min'}</DropdownMenuTrigger>
@@ -71,7 +70,7 @@ const Search = ({ filter, dispatchFilter  } : { filter: FilterType, dispatchFilt
                     </div>
                 </PopoverContent>
             </Popover>
-            <DropdownMenu>
+            <DropdownMenu data-testid="bed-search">
                 <DropdownMenuTrigger className="px-4 py-2 rounded-lg border p-2 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-gray-400">{filter.bedroom || 'Bed'}</DropdownMenuTrigger>
                 <DropdownMenuContent>
                     {
@@ -81,7 +80,7 @@ const Search = ({ filter, dispatchFilter  } : { filter: FilterType, dispatchFilt
                     }
                 </DropdownMenuContent>
             </DropdownMenu>
-            <Popover>
+            <Popover data-testid="area-search" >
                 <PopoverTrigger asChild>
                     <Button variant="outline">{getTitle(filter.minArea, filter.maxArea, 'ft.')}</Button>
                 </PopoverTrigger>
@@ -110,7 +109,7 @@ const Search = ({ filter, dispatchFilter  } : { filter: FilterType, dispatchFilt
                     </div>
                 </PopoverContent>
             </Popover>
-            <Button variant="ghost" onClick={handleReset}>Reset</Button>
+            <Button aria-label="search-reset-btn" variant="ghost" onClick={handleReset}>Reset</Button>
         </div>
     );
 }
