@@ -21,7 +21,7 @@ describe('test home page', async () => {
     expect(screen.queryByTestId('property-component')).toBeDefined(); // property component
     expect(screen.getByText('initial title', { exact: false })).toBeDefined();
     expect(screen.getByText('initial name', { exact: false })).toBeDefined();
-    expect(screen.getByText('Type - RENT')).toBeDefined();
+    expect(screen.getByText('- RENT -')).toBeDefined();
     expect(screen.queryByTestId('property-pagination')).toBeDefined();
   });
 });
@@ -52,7 +52,7 @@ describe('test pagination component', async () => {
     await waitFor(() => {
       expect(screen.getByText('second title', { exact: false })).toBeDefined();
       expect(screen.getByText('second name', { exact: false })).toBeDefined();
-      expect(screen.getByText('Type - SALE')).toBeDefined();
+      expect(screen.getByText('- SALE -')).toBeDefined();
     });
     await act(async () => {
       userEvent.click(screen.getByText('Prev Page'));
@@ -60,7 +60,7 @@ describe('test pagination component', async () => {
     await waitFor(() => {
       expect(screen.getByText('initial title', { exact: false })).toBeDefined();
       expect(screen.getByText('initial name', { exact: false })).toBeDefined();
-      expect(screen.getByText('Type - RENT')).toBeDefined();
+      expect(screen.getByText('- RENT -')).toBeDefined();
     });
   });
 
@@ -76,7 +76,7 @@ describe('test pagination component', async () => {
     await waitFor(() => {
       expect(screen.getByText('second title', { exact: false })).toBeDefined();
       expect(screen.getByText('second name', { exact: false })).toBeDefined();
-      expect(screen.getByText('Type - SALE')).toBeDefined();
+      expect(screen.getByText('- SALE -')).toBeDefined();
     });
     await act(async () => {
       userEvent.click(screen.getByLabelText('page-btn-1'))
@@ -84,7 +84,7 @@ describe('test pagination component', async () => {
     await waitFor(() => {
       expect(screen.getByText('initial title', { exact: false })).toBeDefined();
       expect(screen.getByText('initial name', { exact: false })).toBeDefined();
-      expect(screen.getByText('Type - RENT')).toBeDefined();
+      expect(screen.getByText('- RENT -')).toBeDefined();
     });
   });
 });
@@ -127,7 +127,7 @@ describe('test search component', async () => {
   });
 
   // will throw act() warning.
-  test('filter by min price', async () => {
+  test('filter by min price (will throw act() warning)', async () => {
     render(
       <MockedProvider mocks={priceFilterMockData} addTypename={false}>
         <Home initialData={initialMockData} />
@@ -156,6 +156,7 @@ describe('test search component', async () => {
   });
   // todo - add filter by bedroom count
   // todo -add filter by area 
+  // opps - todo - rest func
 });
 
 describe('test no data available', async () => {
