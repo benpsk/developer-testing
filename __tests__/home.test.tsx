@@ -2,7 +2,7 @@ import { act, render, screen, waitFor } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
 import Home from '@/components/home';
 import { test, expect, vi, describe } from 'vitest';
-import { initialMockData, mocks, priceFilterMockData, offerTypeMockData } from '@/__mocks__/handlers';
+import { initialMockData, mocks, priceFilterMockData, offerTypeMockData, emptyData, initialEmptyData } from '@/__mocks__/handlers';
 import userEvent from '@testing-library/user-event'
 
 vi.mock('@/components/ui/carousel', () => {
@@ -156,4 +156,15 @@ describe('test search component', async () => {
   });
   // todo - add filter by bedroom count
   // todo -add filter by area 
+});
+
+describe('test no data available', async () => {
+  test('show no data avaible when no data', async () => {
+    render(
+      <MockedProvider mocks={emptyData} addTypename={false}>
+        <Home initialData={initialEmptyData} />
+      </MockedProvider>
+    );
+    expect(screen.getByText('No data available...'));
+  });
 });
