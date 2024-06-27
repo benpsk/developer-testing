@@ -15,7 +15,7 @@ const Home = ({ initialData }: { initialData: any }) => {
   const [filter, dispatchFilter] = useReducer(searchReducer, initialFilter);
 
   const { loading, error, data, refetch } = useQuery(GET_PROPERTY, {
-    skip: true, 
+    skip: true,
   });
 
 
@@ -44,12 +44,13 @@ const Home = ({ initialData }: { initialData: any }) => {
       />
       <div className="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-2 xl:grid-cols-2 xl:gap-8">
         {
-          currentData.properties.map((property: Property) => (
-            <Property property={property} key={property.id} />
-          ))}
+          currentData.pageInfo.totalCount == 0 ? 'No data available...' :
+            currentData.properties.map((property: Property) => (
+              <Property property={property} key={property.id} />
+            ))}
       </div>
       {
-        currentData.pageInfo.totalCount > 1 && (
+        currentData.pageInfo.totalCount > currentData.pageInfo.perPage && (
           <Pagination
             pageInfo={currentData.pageInfo}
             skip={skip}
